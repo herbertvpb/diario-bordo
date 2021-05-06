@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import {Text, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import AuthContainer from '../../components/AuthContainer';
 
 // import { Container } from './styles';
 
@@ -18,7 +19,7 @@ const SignIn: React.FC = () => {
   }, [navigate]);
 
   return (
-    <View>
+    <AuthContainer>
       <Text>SignIn</Text>
       <Button icon="camera" mode="contained" onPress={() => {}}>
         Entrar
@@ -29,7 +30,7 @@ const SignIn: React.FC = () => {
       <Button mode="text" onPress={navigateToForgotPassword}>
         Esqueceu sua senha?
       </Button>
-    </View>
+    </AuthContainer>
   );
 }
 

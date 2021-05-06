@@ -4,6 +4,7 @@ import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import theme from './styles/defaultTheme';
+import { StatusBar } from 'expo-status-bar';
 
 import Routes from './routes';
 
@@ -11,6 +12,7 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>
+        <StatusBar style="light" />
         <Routes />
       </PaperProvider>
     </NavigationContainer>

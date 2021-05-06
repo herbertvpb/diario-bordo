@@ -1,13 +1,14 @@
 import React from 'react';
-import {Text, View } from 'react-native';
+import {Text } from 'react-native';
+import AuthContainer from '../../components/AuthContainer';
 
 // import { Container } from './styles';
 
 const ForgotPassword: React.FC = () => {
   return (
-    <View>
+    <AuthContainer>
       <Text>ForgotPassword</Text>
-    </View>
+    </AuthContainer>
   );
 }
 
