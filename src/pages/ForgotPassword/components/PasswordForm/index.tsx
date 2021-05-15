@@ -45,6 +45,7 @@ const PasswordForm: React.FC<IProps> = ({ onFormSubmit }) => {
         style={{
           backgroundColor: 'transparent'
         }}
+        secureTextEntry
       />
       <HelperText type="error" visible={!!errors.password?.message}>
         {errors.password?.message}
@@ -58,6 +59,7 @@ const PasswordForm: React.FC<IProps> = ({ onFormSubmit }) => {
         style={{
           backgroundColor: 'transparent'
         }}
+        secureTextEntry
       />
       <HelperText type="error" visible={!!errors.confirmPassword?.message}>
         {errors.confirmPassword?.message}

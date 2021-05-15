@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { fieldsValidationSchema } from './validation';
 import { Form } from './styles';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import SimpleHeader from '../../components/SimpleHeader';
 
 // import { Container } from './styles';
 interface IFormInput {
@@ -39,13 +40,7 @@ const SignUp: React.FC = () => {
 
   return (
     <AuthContainer>
-      <IconButton
-        icon="close"
-        style={{ alignSelf: 'flex-end', marginRight: 16}}
-        color={Colors.white}
-        size={30}
-        onPress={goBack}
-      />
+      <SimpleHeader />
       <Form>
         <Title
           style={{
@@ -85,6 +80,8 @@ const SignUp: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          keyboardType="numeric"
+          maxLength={11}
         />
         <HelperText type="error" visible={!!errors.document?.message}>
           {errors.document?.message}
@@ -98,13 +95,12 @@ const SignUp: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          keyboardType="numeric"
+          maxLength={6}
         />
         <HelperText type="error" visible={!!errors.anacCode?.message}>
           {errors.anacCode?.message}
         </HelperText>
-
-
-
         <TextInput
           label={'Email'}
           placeholder={'alberto@email.com'}
@@ -114,6 +110,7 @@ const SignUp: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          keyboardType="email-address"
         />
         <HelperText type="error" visible={!!errors.email?.message}>
           {errors.email?.message}
@@ -127,6 +124,7 @@ const SignUp: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          secureTextEntry
         />
         <HelperText type="error" visible={!!errors.password?.message}>
           {errors.password?.message}
@@ -140,6 +138,7 @@ const SignUp: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          secureTextEntry
         />
         <HelperText type="error" visible={!!errors.confirmPassword?.message}>
           {errors.confirmPassword?.message}

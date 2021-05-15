@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { IconButton, Paragraph, Snackbar, Title } from 'react-native-paper';
+import { Paragraph, Snackbar, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import AuthContainer from '../../components/AuthContainer';
 import { Form } from './styles';
@@ -7,6 +7,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import PasswordForm from './components/PasswordForm';
 import SendPinForm from './components/SendPinForm';
 import ValidatePinForm from './components/ValidatePinForm';
+import SimpleHeader from '../../components/SimpleHeader';
 
 // import { Container } from './styles';
 
@@ -38,13 +39,7 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <AuthContainer>
-      <IconButton
-        icon="close"
-        style={{ alignSelf: 'flex-end', marginRight: 16}}
-        color={Colors.white}
-        size={30}
-        onPress={goBack}
-      />
+      <SimpleHeader />
       <Form>
         <Title
           style={{

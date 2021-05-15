@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { fieldsValidationSchema } from './validation';
 import { Form } from './styles';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useAuth } from '../../hooks/auth';
 
 // import { Container } from './styles';
 interface IFormInput {
@@ -30,7 +31,24 @@ const SignIn: React.FC = () => {
     navigate('ForgotPassword');
   }, [navigate]);
 
-  const onSubmit = (data: any) => Alert.alert(data.email, data.password);
+  const { signIn } = useAuth();
+
+  const handleSignIn = useCallback(
+    async (data: IFormInput) => {
+      try {
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu um erro ao fazer login, cheque as credenciais.',
+        );
+      }
+    },
+    [signIn],
+  );
 
   useEffect(() => {
     register('email')
@@ -58,6 +76,7 @@ const SignIn: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          keyboardType="email-address"
         />
         <HelperText type="error" visible={!!errors.email?.message}>
           {errors.email?.message}
@@ -71,6 +90,7 @@ const SignIn: React.FC = () => {
           style={{
             backgroundColor: 'transparent'
           }}
+          secureTextEntry
         />
         <HelperText type="error" visible={!!errors.password?.message}>
           {errors.password?.message}
@@ -90,22 +110,21 @@ const SignIn: React.FC = () => {
             margin: 16
           }}
           labelStyle={{ color: '#787878'}}
-          onPress={handleSubmit(onSubmit)}
+          onPress={handleSubmit(handleSignIn)}
         >
           Entrar
-        </Button>  
+        </Button>        
+        <Button
+          mode="text"
+          onPress={navigateToSignUp}
+          color={Colors.white}
+          style={{
+            marginTop: '50%'
+          }}
+        >
+          Não é cadastrado? Cadastre-se aqui.
+        </Button>
       </Form>
-      
-      <Button
-        mode="text"
-        onPress={navigateToSignUp}
-        color={Colors.white}
-        style={{
-          marginTop: '50%'
-        }}
-      >
-        Não é cadastrado? Cadastre-se aqui.
-      </Button>
     </AuthContainer>
   );
 }

@@ -7,7 +7,7 @@ const AuthContainer: React.FC = ({ children }) => {
   return (
       <Container>
         <Image resizeMode="cover" source={require('../../assets/background.png')}>
-            {children}
+          {children}
         </Image>
       </Container>
   );
