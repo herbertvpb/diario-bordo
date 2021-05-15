@@ -32,8 +32,6 @@ const SignIn: React.FC = () => {
 
   const onSubmit = (data: any) => Alert.alert(data.email, data.password);
 
-
-
   useEffect(() => {
     register('email')
     register('password')
