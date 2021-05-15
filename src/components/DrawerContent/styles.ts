@@ -15,6 +15,7 @@ export const Header = styled(Card.Content)`
 `
 
 export const Menu = styled.View`
+    padding-top: 16px;
 `;
 
 

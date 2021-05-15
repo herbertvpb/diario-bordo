@@ -1,57 +1,74 @@
+import { DrawerContentComponentProps, DrawerItem } from '@react-navigation/drawer';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import { Image, View } from 'react-native';
-import { IconButton, Colors, Headline, Caption, Card, Avatar, Title, Button, Divider } from 'react-native-paper';
+import { IconButton, Colors, Headline, Caption, Card, Avatar, Title, Button, Divider, Drawer } from 'react-native-paper';
+import { useAuth } from '../../hooks/auth';
 
 import { Container, Header, Menu } from './styles';
 
-interface DrawerContentProps {
+interface DrawerContentProps extends DrawerContentComponentProps {
   showInfo?: boolean;
 }
 
 const menuOptions = [
   {
     label: 'Caderneta Individual de Voo',
-    route: '',
-    icon: 'menu-book'
+    route: 'IndividualBook',
+    icon: 'book-open-variant',
+    type: 'navigate'
   },
   {
     label: 'Licenças',
-    route: '',
-    icon: 'credit-card'
+    route: 'Licenses',
+    icon: 'credit-card',
+    type: 'navigate'
   },
   {
     label: 'Habilitações',
-    route: '',
-    icon: 'credit-card'
+    route: 'Qualifications',
+    icon: 'credit-card',
+    type: 'navigate'
   },
   {
     label: 'Certificado Médico Aeronáutico',
-    route: '',
-    icon: 'plus'
+    route: 'MedicalCertificate',
+    icon: 'medical-bag',
+    type: 'navigate'
   },
   {
     label: 'Aeronaves',
-    route: '',
-    icon: 'plus'
+    route: 'Aircraft',
+    icon: 'airplane',
+    type: 'navigate'
   },
   {
     label: 'Diário de Bordo',
-    route: '',
-    icon: 'plus'
+    route: 'Logbook',
+    icon: 'book-open',
+    type: 'navigate'
   },
   {
     label: 'Alterar Senha',
     route: '',
-    icon: 'plus'
+    icon: 'key',
+    type: 'password'
   },
   {
     label: 'Sair',
     route: '',
-    icon: 'plus'
+    icon: 'exit-to-app',
+    type: 'logout'
   },
 ]
 
-const DrawerContent: React.FC<DrawerContentProps> = ({ showInfo = false }) => {
+const DrawerContent: React.FC<DrawerContentProps> = (props) => {
+  const { dispatch, navigate } = props.navigation;
+  const { signOut } = useAuth();
+
+  const toggleMenuDrawer = useCallback(() => {
+    dispatch(DrawerActions.toggleDrawer);
+  }, [dispatch]);
   
   return (
     <Container>
@@ -81,7 +98,7 @@ const DrawerContent: React.FC<DrawerContentProps> = ({ showInfo = false }) => {
               icon="account-circle"
               mode="text"
               color="#808080"
-              onPress={() => console.log('Pressed')}
+              onPress={() => {}}
             >
               Editar perfil
             </Button>
@@ -89,26 +106,39 @@ const DrawerContent: React.FC<DrawerContentProps> = ({ showInfo = false }) => {
           <IconButton
             icon="chevron-left"
             color="#808080"
-            size={30}
-            onPress={() => {}}
+            size={32}
+            onPress={toggleMenuDrawer}
           />
         </Header>
       </Card>
       <Menu>
         <Divider />
-        {menuOptions.map((item) => (
+        {menuOptions.map((item, index) => (
           <>
             <Button
               key={item.route}
               icon={item.icon}
+              style={{
+                height: 48,
+                justifyContent: 'center',
+              }}
               mode="text"
               color="#808080"
-              contentStyle={{ justifyContent: 'flex-start'}}
-              onPress={() => console.log('Pressed')}
+              contentStyle={{ justifyContent: 'flex-start' }}
+              onPress={() => {
+                if (item.type === 'logout') {
+                  signOut()
+                } 
+                if (item.type === 'navigate') {
+                  navigate(item.route)
+                }
+              }}
             >
               {item.label}
             </Button>
             <Divider />
+            {index === 3 && <Divider style={{ marginTop: 32 }}/>}
+            {index === 5 && <Divider style={{ marginTop: '72%' }}/>}
           </>
         ))}
       </Menu>

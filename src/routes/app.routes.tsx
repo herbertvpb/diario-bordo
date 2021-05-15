@@ -17,7 +17,7 @@ const App = createDrawerNavigator();
 const AppRoutes: React.FC = () => (
     <App.Navigator
         initialRouteName="Dashboard"
-        drawerContent={() => <DrawerContent />}
+        drawerContent={props => <DrawerContent {...props}/>}
         drawerStyle={{ width: '85%' }}
     >
         <App.Screen name="Dashboard" component={Dashboard}/>

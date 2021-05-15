@@ -4,13 +4,14 @@ import { IconButton, Colors, Headline, Caption, Card } from 'react-native-paper'
 
 import { Container, Header, TotalHours } from './styles';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CustomHeaderProps {
   showInfo?: boolean;
 }
 
 const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false }) => {
-  const { dispatch } = useNavigation();
+  const { dispatch, navigate } = useNavigation();
 
   const toggleMenuDrawer = useCallback(() => {
     dispatch(DrawerActions.toggleDrawer);
@@ -28,10 +29,14 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false }) => {
           size={24}
           onPress={toggleMenuDrawer}
         />
-        <Image
-          style={{ width: 35, height: 35 }}
-          source={require('../../assets/small-logo.png')}
-        />
+        <TouchableOpacity
+          onPress={() => navigate('Dashboard')}
+        >
+          <Image
+            style={{ width: 35, height: 35 }}
+            source={require('../../assets/small-logo.png')}
+          />
+        </TouchableOpacity>
         <IconButton
           icon="airplane"
           color={Colors.white}

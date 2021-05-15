@@ -65,7 +65,6 @@ const Dashboard: React.FC = () => {
         />
       </Portal>
       <CustomHeader showInfo={true}/>
-      <Button onPress={signOut}>Sair da aplicação</Button>
     </View>
   );
 }
