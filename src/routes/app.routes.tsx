@@ -8,12 +8,17 @@ import Qualifications from '../pages/Qualifications';
 import MedicalCertificate from '../pages/MedicalCertificate';
 import Aircraft from '../pages/Aircraft';
 import Logbook from '../pages/Logbook';
+import { View } from 'react-native';
+import { Title } from 'react-native-paper';
+import DrawerContent from '../components/DrawerContent';
 
 const App = createDrawerNavigator();
 
 const AppRoutes: React.FC = () => (
     <App.Navigator
         initialRouteName="Dashboard"
+        drawerContent={() => <DrawerContent />}
+        drawerStyle={{ width: '85%' }}
     >
         <App.Screen name="Dashboard" component={Dashboard}/>
         <App.Screen name="IndividualBook" component={IndividualBook}/>
