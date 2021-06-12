@@ -1,5 +1,8 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Dimensions, View } from 'react-native';
+import { Title } from 'react-native-paper';
+import DrawerContent from '../components/DrawerContent';
 
 import Dashboard from '../pages/Dashboard';
 import IndividualBook from '../pages/IndividualBook';
@@ -8,17 +11,9 @@ import Qualifications from '../pages/Qualifications';
 import MedicalCertificate from '../pages/MedicalCertificate';
 import Aircraft from '../pages/Aircraft';
 import Logbook from '../pages/Logbook';
-import { Dimensions, View } from 'react-native';
-import { Title } from 'react-native-paper';
-import DrawerContent from '../components/DrawerContent';
+import EditProfile from '../pages/EditProfile';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-console.log({
-    windowWidth,
-    windowHeight,
-})
 
 const App = createDrawerNavigator();
 
@@ -37,6 +32,7 @@ const AppRoutes: React.FC = () => (
         <App.Screen name="MedicalCertificate" component={MedicalCertificate}/>
         <App.Screen name="Aircraft" component={Aircraft}/>
         <App.Screen name="Logbook" component={Logbook}/>
+        <App.Screen name="EditProfile" component={EditProfile}/>
     </App.Navigator>
 );
 

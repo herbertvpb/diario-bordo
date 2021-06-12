@@ -67,17 +67,12 @@ const menuOptions = [
 const DrawerContent: React.FC<DrawerContentProps> = (props) => {
   const { dispatch, navigate } = props.navigation;
   const { signOut } = useAuth();
-  const windowHeight = Dimensions.get('window').height;
   const windowWidth = Dimensions.get('window').width;
 
   const toggleMenuDrawer = useCallback(() => {
     dispatch(DrawerActions.toggleDrawer);
   }, [dispatch]);
 
-  console.log({
-    windowHeight
-  })
-  
   return (
     <Container>
       <Card>
@@ -106,7 +101,7 @@ const DrawerContent: React.FC<DrawerContentProps> = (props) => {
               icon="account-circle"
               mode="text"
               color="#808080"
-              onPress={() => {}}
+              onPress={() => navigate('EditProfile')}
             >
               Editar perfil
             </Button>
@@ -128,9 +123,8 @@ const DrawerContent: React.FC<DrawerContentProps> = (props) => {
       <ScrollView>
         <Divider />
         {menuOptions.map((item, index) => (
-          <>
+          <View key={item.route}>
             <Button
-              key={item.route}
               icon={item.icon}
               style={{
                 height: 48,
@@ -151,7 +145,7 @@ const DrawerContent: React.FC<DrawerContentProps> = (props) => {
               {item.label}
             </Button>
             <Divider />
-          </>
+          </View>
         ))}
       </ScrollView>
       <View>

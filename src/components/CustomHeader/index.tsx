@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import { IconButton, Colors, Headline, Caption, Card } from 'react-native-paper';
 
 import { Container, Header, TotalHours } from './styles';
@@ -8,9 +8,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CustomHeaderProps {
   showInfo?: boolean;
+  showRightButton?: boolean;
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false }) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false, showRightButton = true }) => {
   const { dispatch, navigate } = useNavigation();
 
   const toggleMenuDrawer = useCallback(() => {
@@ -37,12 +38,16 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false }) => {
             source={require('../../assets/small-logo.png')}
           />
         </TouchableOpacity>
-        <IconButton
-          icon="airplane"
-          color={Colors.white}
-          size={24}
-          onPress={() => console.log('Pressed')}
-        />
+        {showRightButton ? (
+          <IconButton
+            icon="airplane"
+            color={Colors.white}
+            size={24}
+            onPress={() => console.log('Pressed')}
+          />
+        ) : (
+          <View style={{ width: 48 }}></View>
+        )}
       </Header>
       {showInfo && (
         <TotalHours>

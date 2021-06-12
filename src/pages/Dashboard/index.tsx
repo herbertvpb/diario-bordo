@@ -1,5 +1,5 @@
 import { useIsDrawerOpen } from '@react-navigation/drawer';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useNavigationState} from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { FAB, Portal } from 'react-native-paper';
@@ -10,9 +10,7 @@ import CustomHeader from '../../components/CustomHeader';
 
 const Dashboard: React.FC = () => {
   const isDrawerOpen = useIsDrawerOpen();
-  const route = useRoute();
-
-  console.log({route: route})
+  const route = useNavigationState(state => state);
   
   const [state, setState] = React.useState({ open: false });
 
@@ -24,7 +22,7 @@ const Dashboard: React.FC = () => {
     <View>
       <Portal>
         <FAB.Group
-          visible={!isDrawerOpen && route.name === 'Dashboard'}
+          visible={!isDrawerOpen && route.index === 0}
           open={open}
           icon={open ? 'close' : 'plus'}
           fabStyle={{

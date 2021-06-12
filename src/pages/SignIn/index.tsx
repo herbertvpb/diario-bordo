@@ -38,9 +38,13 @@ const SignIn: React.FC = () => {
   const handleSignIn = useCallback(
     async (data: IFormInput) => {
       try {
+        // await signIn({
+        //   email: data.email,
+        //   password: data.password,
+        // });
         await signIn({
-          email: data.email,
-          password: data.password,
+          email: 'herbert.vpb@gmail.com',
+          password: '12345678',
         });
       } catch (err) {
         Alert.alert(
