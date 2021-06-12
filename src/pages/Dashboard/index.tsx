@@ -1,14 +1,18 @@
+import { useIsDrawerOpen } from '@react-navigation/drawer';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { Button, FAB, Portal } from 'react-native-paper';
+import { View } from 'react-native';
+import { FAB, Portal } from 'react-native-paper';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import CustomHeader from '../../components/CustomHeader';
-import { useAuth } from '../../hooks/auth';
 
 // import { Container } from './styles';
 
 const Dashboard: React.FC = () => {
-  const { signOut } = useAuth();
+  const isDrawerOpen = useIsDrawerOpen();
+  const route = useRoute();
+
+  console.log({route: route})
   
   const [state, setState] = React.useState({ open: false });
 
@@ -20,7 +24,7 @@ const Dashboard: React.FC = () => {
     <View>
       <Portal>
         <FAB.Group
-          visible={true}
+          visible={!isDrawerOpen && route.name === 'Dashboard'}
           open={open}
           icon={open ? 'close' : 'plus'}
           fabStyle={{

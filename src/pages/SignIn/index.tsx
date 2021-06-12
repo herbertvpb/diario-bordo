@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { Alert, Image } from 'react-native';
+import { Alert, Image, Dimensions } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import AuthContainer from '../../components/AuthContainer';
@@ -18,6 +18,8 @@ interface IFormInput {
 
 const SignIn: React.FC = () => {
   const { navigate } = useNavigation();
+  const windowHeight = Dimensions.get('window').height;
+  const windowWidth = Dimensions.get('window').width;
 
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<IFormInput>({
     resolver: yupResolver(fieldsValidationSchema)
@@ -60,10 +62,10 @@ const SignIn: React.FC = () => {
       <Form>
         <Image
           style={{
-            width: 233,
-            height: 233,
+            width: windowHeight * 0.25,
+            height: windowHeight * 0.25,
             alignSelf: 'center',
-            marginTop: '20%',
+            marginTop: windowHeight * 0.08,
           }}
           source={require('../../assets/small-logo.png')}
         />
@@ -98,6 +100,10 @@ const SignIn: React.FC = () => {
         <Button
           style={{ alignSelf: 'flex-end'}}
           color={Colors.white}
+          uppercase={false}
+          labelStyle={{
+            fontSize: windowWidth < 400 ? 12 : 14
+          }}
           mode="text"
           onPress={navigateToForgotPassword}
         >
@@ -116,10 +122,14 @@ const SignIn: React.FC = () => {
         </Button>        
         <Button
           mode="text"
+          uppercase={false}
+          labelStyle={{
+            fontSize: windowWidth < 400 ? 12 : 14
+          }}
           onPress={navigateToSignUp}
           color={Colors.white}
           style={{
-            marginTop: '50%'
+            marginTop: windowHeight < 600 ? 48 : windowHeight * 0.3
           }}
         >
           Não é cadastrado? Cadastre-se aqui.

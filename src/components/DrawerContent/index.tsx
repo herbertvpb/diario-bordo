@@ -1,11 +1,25 @@
-import { DrawerContentComponentProps, DrawerItem } from '@react-navigation/drawer';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { DrawerActions } from '@react-navigation/native';
 import React, { useCallback } from 'react';
-import { Image, View } from 'react-native';
-import { IconButton, Colors, Headline, Caption, Card, Avatar, Title, Button, Divider, Drawer } from 'react-native-paper';
+import { View } from 'react-native';
+import {
+  IconButton,
+  Colors,
+  Headline,
+  Caption,
+  Card,
+  Avatar,
+  Title,
+  Button,
+  Divider,
+  Drawer,
+} from 'react-native-paper';
 import { useAuth } from '../../hooks/auth';
+import { Dimensions, ScrollView } from 'react-native';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
 import { Container, Header, Menu } from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface DrawerContentProps extends DrawerContentComponentProps {
   showInfo?: boolean;
@@ -48,42 +62,36 @@ const menuOptions = [
     icon: 'book-open',
     type: 'navigate'
   },
-  {
-    label: 'Alterar Senha',
-    route: '',
-    icon: 'key',
-    type: 'password'
-  },
-  {
-    label: 'Sair',
-    route: '',
-    icon: 'exit-to-app',
-    type: 'logout'
-  },
 ]
 
 const DrawerContent: React.FC<DrawerContentProps> = (props) => {
   const { dispatch, navigate } = props.navigation;
   const { signOut } = useAuth();
+  const windowHeight = Dimensions.get('window').height;
+  const windowWidth = Dimensions.get('window').width;
 
   const toggleMenuDrawer = useCallback(() => {
     dispatch(DrawerActions.toggleDrawer);
   }, [dispatch]);
+
+  console.log({
+    windowHeight
+  })
   
   return (
     <Container>
       <Card>
         <Header>
           <Avatar.Image
-            size={100}
+            size={windowWidth / 4}
             source={{
               uri: 'https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1'
             }}
           />
           <View
             style={{
-              width: '55%',
               alignItems: 'flex-start',
+              width: '58%',
             }}
           >
             <Title
@@ -103,15 +111,21 @@ const DrawerContent: React.FC<DrawerContentProps> = (props) => {
               Editar perfil
             </Button>
           </View>
-          <IconButton
-            icon="chevron-left"
-            color="#808080"
-            size={32}
+          <TouchableOpacity
             onPress={toggleMenuDrawer}
-          />
+          >
+            <Icon
+              name="chevron-left"
+              color="#808080"
+              size={24} 
+            />
+          </TouchableOpacity>
         </Header>
       </Card>
+
+
       <Menu>
+      <ScrollView>
         <Divider />
         {menuOptions.map((item, index) => (
           <>
@@ -137,10 +151,40 @@ const DrawerContent: React.FC<DrawerContentProps> = (props) => {
               {item.label}
             </Button>
             <Divider />
-            {index === 3 && <Divider style={{ marginTop: 32 }}/>}
-            {index === 5 && <Divider style={{ marginTop: '72%' }}/>}
           </>
         ))}
+      </ScrollView>
+      <View>
+        <Divider />
+        <Button
+          icon="key"
+          style={{
+            height: 48,
+            justifyContent: 'center',
+          }}
+          mode="text"
+          color="#808080"
+          contentStyle={{ justifyContent: 'flex-start' }}
+          onPress={() => {}}
+        >
+          Alterar Senha
+        </Button>
+        <Divider />
+        <Button
+          icon="exit-to-app"
+          style={{
+            height: 48,
+            justifyContent: 'center',
+          }}
+          mode="text"
+          color="#808080"
+          contentStyle={{ justifyContent: 'flex-start' }}
+          onPress={() => signOut()}
+        >
+          Sair
+        </Button>
+        <Divider />
+      </View>
       </Menu>
     </Container>
   );
