@@ -9,9 +9,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 interface CustomHeaderProps {
   showInfo?: boolean;
   showRightButton?: boolean;
+  handleAircraftModal?: () => void;
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false, showRightButton = true }) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({
+  showInfo = false,
+  showRightButton = true,
+  handleAircraftModal,
+}) => {
   const { dispatch, navigate } = useNavigation();
 
   const toggleMenuDrawer = useCallback(() => {
@@ -43,7 +48,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({ showInfo = false, showRight
             icon="airplane"
             color={Colors.white}
             size={24}
-            onPress={() => console.log('Pressed')}
+            onPress={handleAircraftModal}
           />
         ) : (
           <View style={{ width: 48 }}></View>
